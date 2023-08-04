@@ -1,0 +1,84 @@
+library(tidyverse)
+
+###################### IMPORT THE DATA ######################
+mydata = read.csv("FoodDataSet.csv",header=TRUE)
+
+###################### EXPLORE THE DATA ######################
+str(mydata) #check data structure
+summary(mydata) #descriptive statistics
+head(mydata) #top 6 data
+tail(mydata) #last 6 data
+
+###################### DATA CLEANING ######################
+###################### Standardize the letter casing ######################
+mydata <- mydata %>%
+  mutate(Nationality = if_else(!is.na(Nationality),str_to_sentence(Nationality,"en_only"),NA_character_))
+
+mydata <- mydata %>%
+  mutate(Food = if_else(!is.na(Food),str_to_sentence(Food,"en_only"),NA_character_))
+
+mydata <- mydata %>%
+  mutate(Juice = if_else(!is.na(Juice),str_to_sentence(Juice,"en_only"),NA_character_))
+
+###################### Standardize data in same format ######################
+mydata$Timestamp <- as.POSIXct(mydata$Timestamp, format="%Y/%m/%d")
+class(mydata$Timestamp)
+
+#remove leading and trailing spaces under Nationality column
+mydata$Nationality <- trimws(mydata$Nationality)
+
+#correct spelling mistakes
+mydata$Nationality[mydata$Nationality == 'China'] <- 'Chinese'
+mydata$Nationality[mydata$Nationality == 'Indonesain'] <- 'Indonesian'
+mydata$Nationality[mydata$Nationality == 'Indonesia'] <- 'Indonesian'
+mydata$Nationality[mydata$Nationality == 'Japan'] <- 'Japanese'
+mydata$Nationality[mydata$Nationality == 'Malaysia'] <- 'Malaysian'
+mydata$Nationality[mydata$Nationality == 'My'] <- 'Malaysian'
+mydata$Nationality[mydata$Nationality == 'Pakistan'] <- 'Pakistani'
+mydata$Nationality[mydata$Nationality == 'Yemen'] <- 'Yemeni'
+
+# Remove rows where Nationality is 'Muslim'
+mydata <- mydata[!(mydata$Nationality %in% c('Muslim')), ]
+
+###################### Check duplicate values ######################
+#check for duplicates in the entire data set
+duplicated_rows <- duplicated(mydata); 
+mydata[duplicated_rows,]
+
+###################### Missing values ######################
+#fill blank data with NA
+mydata$Gender <- ifelse(mydata$Gender=="", NA, mydata$Gender)
+
+#entire data set
+colSums(is.na(mydata))
+
+# Load required library
+library(dplyr)
+
+# Impute missing values with mode (most frequent value) for categorical variables
+mydata$Gender <- ifelse(is.na(mydata$Gender), names(which.max(table(mydata$Gender))), mydata$Gender)
+mydata$Nationality <- ifelse(is.na(mydata$Nationality), names(which.max(table(mydata$Nationality))), mydata$Nationality)
+mydata$Food <- ifelse(is.na(mydata$Food), names(which.max(table(mydata$Food))), mydata$Food)
+mydata$Juice <- ifelse(is.na(mydata$Juice), names(which.max(table(mydata$Juice))), mydata$Juice)
+mydata$Dessert <- ifelse(is.na(mydata$Dessert), names(which.max(table(mydata$Dessert))), mydata$Dessert)
+
+###################### Save the data ######################
+#Save the cleaned dataset
+write.csv(mydata,"cleaned_FoodDataSet.csv")
+
+###################### FREQUENCY OF EACH COLUMN ######################
+table(mydata$Timestamp)
+table(mydata$Participant_ID)
+table(mydata$Gender)
+table(mydata$Nationality)
+table(mydata$Age)
+table(mydata$Food)
+table(mydata$Juice)
+table(mydata$Dessert)
+
+mydata$Age_Group <- cut(mydata$Age, breaks = c(0, 12, 17, 65, Inf), labels = c("Children","Adolescents","Adults","Older adults"))
+
+library(funModeling)
+library(DataExplorer)
+plot_num(mydata)
+plot_bar(mydata)
