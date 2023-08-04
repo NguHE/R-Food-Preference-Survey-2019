@@ -51,3 +51,9 @@ The records show the data collected from 338 surveys conducted from 07th tills 1
 2. Explore the data insights into the underlying patterns and relationships among the data
 3. Apply statistical analysis
 4. Visualize the results
+
+## Dashboard
+🌐 **Tableau:** https://public.tableau.com/views/FoodPreferenceSurvey2019/Dashboard1?:language=en-GB&:display_count=n&:origin=viz_share_link
+
+![Screenshot (977)](https://github.com/NguHE/R-Food-Preference-Survey-2019/assets/125574265/d6d555cb-0eee-4c8e-9e82-9acff8c19014)
+
