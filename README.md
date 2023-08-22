@@ -53,7 +53,8 @@ The records show the data collected from 338 surveys conducted from 07th tills 1
 4. Visualize the results
 
 ## Dashboard
-🌐 **Tableau:** https://public.tableau.com/views/FoodPreferenceSurvey2019/Dashboard1?:language=en-GB&:display_count=n&:origin=viz_share_link
+🌐 **Tableau:** [https://public.tableau.com/views/FoodPreferenceSurvey2019/Dashboard1?:language=en-GB&:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/FoodPreferenceSurvey2019/Dashboard2?:language=en-GB&:display_count=n&:origin=viz_share_link)
 
-![Screenshot (977)](https://github.com/NguHE/R-Food-Preference-Survey-2019/assets/125574265/d6d555cb-0eee-4c8e-9e82-9acff8c19014)
+![Screenshot (1015)](https://github.com/NguHE/R-Food-Preference-Survey-2019/assets/125574265/4dddd5b2-25d2-4d05-852d-6e41bae48a9c)
+
 
